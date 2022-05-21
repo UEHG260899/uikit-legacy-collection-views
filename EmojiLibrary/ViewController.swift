@@ -32,6 +32,17 @@ class ViewController: UIViewController {
         emojiDetailController.emoji = emoji
     }
 
-
+    @IBAction func addEmoji(_ sender: UIBarButtonItem) {
+        let (category, randomEmoji) = Emoji.randomEmoji()
+        dataSource.addEmoji(randomEmoji, to: category)
+        
+        
+        let emojiCount = emojiCollectionView.numberOfItems(inSection: 0)
+        let insertedIndex = IndexPath(item: emojiCount, section: 0)
+        
+        
+        emojiCollectionView.insertItems(at: [insertedIndex])
+    }
+    
 }
 

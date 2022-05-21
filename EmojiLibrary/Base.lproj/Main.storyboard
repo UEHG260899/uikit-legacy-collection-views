@@ -100,7 +100,13 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="y3C-OP-KL2" secondAttribute="trailing" id="XVe-V0-a7T"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="d3a-qp-QXy"/>
+                    <navigationItem key="navigationItem" id="d3a-qp-QXy">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="oFk-9s-xJr">
+                            <connections>
+                                <action selector="addEmoji:" destination="BYZ-38-t0r" id="f89-nN-acL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="emojiCollectionView" destination="y3C-OP-KL2" id="j6W-Qg-SYH"/>
                     </connections>
