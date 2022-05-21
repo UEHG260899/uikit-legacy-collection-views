@@ -19,6 +19,18 @@ class ViewController: UIViewController {
         emojiCollectionView.dataSource = dataSource
         emojiCollectionView.delegate = delegate
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "ShowEmojiDetail",
+              let emojiCell = sender as? EmojiCell,
+              let emojiDetailController = segue.destination as? EmojiDetailController,
+              let indexPath = emojiCollectionView.indexPath(for: emojiCell),
+              let emoji = Emoji.shared.emoji(at: indexPath) else {
+            return
+        }
+        
+        emojiDetailController.emoji = emoji
+    }
 
 
 }
