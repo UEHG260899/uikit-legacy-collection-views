@@ -75,8 +75,9 @@ extension DataSource {
             let indices = indexPaths.filter({ $0.section == section }).map({ $0.item })
             for idx in indices.reversed() {
                 emojiData.remove(at: idx)
-                self.emojiData.data.updateValue(emojiData, forKey: category)
             }
+            
+            self.emojiData.data.updateValue(emojiData, forKey: category)
 
         }
     }
