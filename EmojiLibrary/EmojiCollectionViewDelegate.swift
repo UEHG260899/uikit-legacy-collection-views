@@ -11,7 +11,7 @@ class EmojiCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout 
     
     let numberOfItemsPerRow: CGFloat
     let interItemSpacing: CGFloat
-    
+        
     init(numberOfItemsPerRow: CGFloat, interItemSpacing: CGFloat) {
         self.numberOfItemsPerRow = numberOfItemsPerRow
         self.interItemSpacing = interItemSpacing

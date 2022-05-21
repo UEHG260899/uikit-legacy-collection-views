@@ -18,6 +18,31 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         emojiCollectionView.dataSource = dataSource
         emojiCollectionView.delegate = delegate
+        navigationItem.leftBarButtonItem = editButtonItem
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        emojiCollectionView.indexPathsForVisibleItems.forEach {
+            guard let emojiCell = emojiCollectionView.cellForItem(at: $0) as? EmojiCell else {
+                return
+            }
+            
+            emojiCell.isEditing = editing
+        }
+        
+        emojiCollectionView.indexPathsForSelectedItems?.compactMap({ $0 }).forEach({
+            emojiCollectionView.deselectItem(at: $0, animated: true)
+        })
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if isEditing && identifier == "ShowEmojiDetail" {
+            return false
+        }
+        
+        return true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
