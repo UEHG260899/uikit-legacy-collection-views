@@ -10,6 +10,8 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var emojiCollectionView: UICollectionView!
+    @IBOutlet weak var addButton: UIBarButtonItem!
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
     
     let dataSource = DataSource()
     let delegate = EmojiCollectionViewDelegate(numberOfItemsPerRow: 6, interItemSpacing: 8)
@@ -18,6 +20,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         emojiCollectionView.dataSource = dataSource
         emojiCollectionView.delegate = delegate
+        emojiCollectionView.allowsMultipleSelection = true
         navigationItem.leftBarButtonItem = editButtonItem
     }
     
@@ -35,6 +38,9 @@ class ViewController: UIViewController {
         emojiCollectionView.indexPathsForSelectedItems?.compactMap({ $0 }).forEach({
             emojiCollectionView.deselectItem(at: $0, animated: true)
         })
+        
+        addButton.isEnabled = !editing
+        deleteButton.isEnabled = editing
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -69,5 +75,13 @@ class ViewController: UIViewController {
         emojiCollectionView.insertItems(at: [insertedIndex])
     }
     
+    @IBAction func deleteEmoji(_ sender: UIBarButtonItem) {
+        guard let indexPaths = emojiCollectionView.indexPathsForSelectedItems else {
+            return
+        }
+        
+        dataSource.deleteEmojis(at: indexPaths)
+        emojiCollectionView.deleteItems(at: indexPaths.reversed())
+    }
 }
 

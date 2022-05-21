@@ -61,4 +61,23 @@ extension DataSource {
         emojiData.append(emoji)
         self.emojiData.data.updateValue(emojiData, forKey: category)
     }
+    
+    func deleteEmojis(at indexPaths: [IndexPath]) {
+        let sections = indexPaths.map({ $0.section })
+        let sectionsSet = Set(sections)
+        
+        for (_, section) in sectionsSet.enumerated().sorted(by: >) {
+            let category = emojiData.sections[section]
+            guard var emojiData = emojiData.data[category] else {
+                return
+            }
+
+            let indices = indexPaths.filter({ $0.section == section }).map({ $0.item })
+            for idx in indices.reversed() {
+                emojiData.remove(at: idx)
+                self.emojiData.data.updateValue(emojiData, forKey: category)
+            }
+
+        }
+    }
 }
